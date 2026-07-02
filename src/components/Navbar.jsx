@@ -1,61 +1,75 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
-import { HiMenuAlt3, HiX } from 'react-icons/hi';
+import { useState } from 'react';
+import { HiMenu, HiX } from 'react-icons/hi';
 
 export default function Navbar() {
-  const [nav, setNav] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) setScrolled(true);
-      else setScrolled(false);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const links = [
-    { id: 1, target: 'home', label: 'Início' },
-    { id: 2, target: 'sobre', label: 'Sobre' },
-    { id: 3, target: 'servicos', label: 'Serviços' },
-    { id: 4, target: 'galeria', label: 'Galeria' },
-    { id: 5, target: 'agendar', label: 'Agendamento' },
-    { id: 6, target: 'contato', label: 'Contato' },
+  const navigation = [
+    { name: 'Início', href: '#inicio' },
+    { name: 'Sobre', href: '#sobre' },
+    { name: 'Serviços', href: '#servicos' },
+    { name: 'Galeria', href: '#galeria' },
+    { name: 'Agendamento', href: '#agendamento' },
+    { name: 'Contato', href: '#contato' },
   ];
 
   return (
-    <nav className={`fixed w-full h-20 z-40 transition-all duration-300 ${scrolled ? 'bg-bordo text-offWhite shadow-lg' : 'bg-transparent text-bordo'}`}>
-      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-full">
-        <div className="cursor-pointer">
-          <h1 className="text-2xl font-serif tracking-wider font-bold">Studio NM</h1>
+    <nav className="bg-bordo-dark text-offWhite border-b border-bordo-light sticky top-0 z-50 shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          
+          {/* Brand/Logo */}
+          <div className="flex-shrink-0">
+            <a href="#inicio" className="text-2xl font-serif font-bold tracking-wider text-roseGold hover:text-roseGold-light transition-colors">
+              Studio NM
+            </a>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-center space-x-8">
+              {navigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="font-sans text-sm uppercase tracking-widest text-offWhite/90 hover:text-roseGold font-semibold transition-colors duration-300"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-roseGold hover:text-roseGold-light focus:outline-none"
+              aria-label="Abrir menu"
+            >
+              {isOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
-
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-wider">
-          {links.map(({ id, target, label }) => (
-            <li key={id} className="cursor-pointer hover:text-roseGold transition-colors duration-200">
-              <Link to={target} smooth={true} duration={500} offset={-80}>{label}</Link>
-            </li>
-          ))}
-        </ul>
-
-        {/* Mobile Menu Icon */}
-        <div onClick={() => setNav(!nav)} className="md:hidden cursor-pointer z-50 text-2xl">
-          {nav ? <HiX className="text-offWhite" /> : <HiMenuAlt3 />}
-        </div>
-
-        {/* Mobile Drawer */}
-        {nav && (
-          <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-bordo text-offWhite z-40 space-y-6 text-xl font-serif">
-            {links.map(({ id, target, label }) => (
-              <li key={id} className="cursor-pointer hover:text-roseGold transition-colors duration-200">
-                <Link onClick={() => setNav(false)} to={target} smooth={true} duration={500} offset={-80}>{label}</Link>
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
+
+      {/* Mobile Navigation Dropdown */}
+      {isOpen && (
+        <div className="md:hidden bg-bordo border-t border-bordo-light shadow-xl">
+          <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="block px-3 py-3 rounded-md text-base font-sans uppercase tracking-wider text-offWhite hover:bg-bordo-dark hover:text-roseGold transition-all"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
