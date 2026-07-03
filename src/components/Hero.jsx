@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
+import imagemHero from '../assets/hero-unhas.jpg';
 
 export default function Hero() {
   return (
@@ -59,7 +60,7 @@ export default function Hero() {
           >
             {/* Placeholder Premium para Imagem Profissional */}
             <img 
-              src="https://images.unsplash.com/photo-1604654894610-df490651e56c?q=80&w=1000&auto=format&fit=crop" 
+              src={imagemHero}
               alt="Mão elegante com alongamento de unhas perfeito feito por Naila Macedo" 
               className="w-full h-full object-cover"
               loading="eager"
