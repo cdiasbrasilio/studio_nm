@@ -1,18 +1,24 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiX, HiOutlineArrowRight } from 'react-icons/hi';
+import gallery1 from '../assets/gallery-1.jpg';
+import gallery2 from '../assets/gallery-2.jpg';
+import gallery3 from '../assets/gallery-3.jpg';
+import gallery4 from '../assets/gallery-4.jpg';
+import gallery5 from '../assets/gallery-5.jpg';
+import gallery6 from '../assets/gallery-6.jpg';
 
 export default function Galeria() {
   const [activeImage, setActiveImage] = useState(null);
 
   // Substituir pelos links reais do Instagram obtidos na curadoria do Canva/Insta
   const fotos = [
-    { id: 1, src: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?q=80&w=800', alt: 'Alongamento Fibra de Vidro Nude' },
-    { id: 2, src: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?q=80&w=800', alt: 'Esmaltação em Gel com Glitter' },
-    { id: 3, src: 'https://images.unsplash.com/photo-1632345031435-8797b2d58045?q=80&w=800', alt: 'Unhas formato Almôndega Premium' },
-    { id: 4, src: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=800', alt: 'Nail Art Minimalista Elegante' },
-    { id: 5, src: 'https://images.unsplash.com/photo-1604654894610-df490651e56c?q=80&w=800', alt: 'Alongamento F1 Francesinha Reversa' },
-    { id: 6, src: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?q=80&w=800', alt: 'Banho em Gel Natural' },
+    { id: 1, src: gallery1, alt: 'Foto de Galeria 1' },
+    { id: 2, src: gallery2, alt: 'Foto de Galeria 2' },
+    { id: 3, src: gallery3, alt: 'Foto de Galeria 3' },
+    { id: 4, src: gallery4, alt: 'Foto de Galeria 4' },
+    { id: 5, src: gallery5, alt: 'Foto de Galeria 5' },
+    { id: 6, src: gallery6, alt: 'Foto de Galeria 6' },
   ];
 
   return (
