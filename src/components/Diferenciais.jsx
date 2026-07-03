@@ -5,10 +5,10 @@ export default function Diferenciais() {
   const diferenciais = [
     "Atendimento personalizado",
     "Materiais de altíssima qualidade",
-    "Ambiente sofisticado e acolhedor",
+    "Ambiente acolhedor",
     "Agendamento prático e flexível",
     "Acabamento simétrico de excelência",
-    "Materiais 100% esterilizados em autoclave",
+    "Materiais 100% esterilizados",
   ];
 
   return (

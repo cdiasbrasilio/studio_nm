@@ -25,7 +25,8 @@ export default function Hero() {
             Eleve sua autoestima com procedimentos de alto padrão e acabamento impecável, desenhados para a mulher moderna.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link to="agendar" smooth={true} duration={500} offset={-80} aria-label="Ir para agendamento">
+            {/* CORREÇÃO AQUI: Mudado de 'agendar' para 'agendamento' para sincronizar com o Calendário */}
+            <Link to="agendamento" smooth={true} duration={500} offset={-80} aria-label="Ir para agendamento">
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
