@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import imagemNaila from '../assets/naila-macedo.jpg';
 
 export default function Sobre() {
   return (
@@ -15,7 +16,7 @@ export default function Sobre() {
         >
           <div className="w-full max-w-sm mx-auto aspect-[3/4] bg-neutral-200 rounded-[2.5rem] overflow-hidden shadow-xl border-4 border-offWhite">
             <img 
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop" 
+              src={imagemNaila}
               alt="Naila Macedo sorrindo no Studio NM" 
               className="w-full h-full object-cover"
               loading="lazy"
