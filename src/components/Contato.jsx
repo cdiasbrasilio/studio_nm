@@ -7,11 +7,35 @@ export default function Contato() {
     mensagem: ''
   });
 
+  // Função interna para aplicar a máscara (XX) XXXXX-XXXX em tempo real
+  const aplicarMascaraTelefone = (value) => {
+    if (!value) return '';
+    
+    // Remove qualquer caractere que não seja número
+    const apenasNumeros = value.replace(/\D/g, '');
+    
+    // Limita a entrada a no máximo 11 dígitos (DDD + 9 dígitos)
+    const digitosLimitados = apenasNumeros.slice(0, 11);
+
+    // Formata progressivamente conforme o usuário digita
+    if (digitosLimitados.length <= 2) {
+      return digitosLimitados.replace(/^(\d{0,2})/, '($1');
+    }
+    if (digitosLimitados.length <= 7) {
+      return digitosLimitados.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+    }
+    return digitosLimitados.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // Se o input atual for o telefone, aplica a máscara antes de atualizar o estado
+    const valorFinal = name === 'telefone' ? aplicarMascaraTelefone(value) : value;
+
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: valorFinal
     }));
   };
 
@@ -21,12 +45,12 @@ export default function Contato() {
     // Número do Studio NM (Naila Macedo)
     const numeroWhats = '5574981262295';
     
-    // Monta o texto da mensagem codificado para a URL
-    const texto = `Olá, Studio NM! Gostaria de fazer um contato:\n\n*Nome:* ${formData.nome}\n*Telefone:* ${formData.telefone}\n*Mensagem:* ${formData.mensagem}`;
+    // Monta o texto da mensagem formatada
+    const texto = `Olá, Studio NM! Gostaria de fazer um contato:\n\n• *Nome:* ${formData.nome}\n• *Telefone:* ${formData.telefone}\n• *Mensagem:* ${formData.mensagem}`;
     const textoCodificado = encodeURIComponent(texto);
     
-    // Abre o WhatsApp com a mensagem formatada
-    window.open(`https://wa.me/${numeroWhats}?text=${textoCodificado}`, '_blank');
+    // Rota direta da API global (limpa cache do campo de texto do WhatsApp automaticamente)
+    window.open(`https://api.whatsapp.com/send?phone=${numeroWhats}&text=${textoCodificado}`, '_blank');
   };
 
   return (
@@ -55,7 +79,7 @@ export default function Contato() {
           <div>
             <label htmlFor="telefone" className="block text-sm font-medium text-bordo/90 mb-1">Seu Telefone / Celular</label>
             <input
-              type="tel"
+              type="text" // Mudado de 'tel' para 'text' para o navegador aceitar os caracteres ( ) e - sem travar a máscara
               id="telefone"
               name="telefone"
               required
